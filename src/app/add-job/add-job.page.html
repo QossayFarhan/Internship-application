@@ -1,0 +1,39 @@
+
+
+  
+<ion-header>
+  <ion-toolbar class="ios hydrated">
+    <ion-title class="ios title-ios hydrated">Add Internship Job</ion-title>
+    <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<div style="height: 900px; width: 100%; left: 0; top: 50px; overflow: hidden; position: fixed; ">
+<ion-content>
+  <ion-list lines="full">
+    <form [formGroup]="addJobForm" (ngSubmit)="formSubmit()">
+      <ion-item>
+        <ion-label position="floating">Company</ion-label>
+        <ion-input formControlName="Company" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Position</ion-label>
+        <ion-input formControlName="Position" type="text" required>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Duration</ion-label>
+        <ion-input formControlName="Duration" type="text" required>
+        </ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" shape="full" expand="block">Add Job</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+</ion-content>
+</div>
