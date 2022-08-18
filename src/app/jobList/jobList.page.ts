@@ -32,8 +32,8 @@ export class JobListPage implements OnInit {
   }
   deleteJob(id) {
     console.log(id)
-    if (window.confirm('Do you really want to delete?')) {
-      this.jobsevice.deleteJob(id)
+     if (window.confirm('Do you really want to delete?')) {
+      this.jobsevice.deleteJob(id);
     }
   }
 }

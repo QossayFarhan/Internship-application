@@ -40,15 +40,17 @@ export class InternshipJobService {
   // Update
   updateJob(id, Job: intrenshipJob) {
     return this.intrenshipRef.update({
-      name: Job.Company,
-      email: Job.Position,
-      mobile: Job.Duration,
+      Company: Job.Company,
+      Position: Job.Position,
+      Duration: Job.Duration,
     });
   }
   // Delete
   deleteJob(id: string) {
-    this.intrenshipRef = this.db.object('/intershipJob/' + id);
-    this.intrenshipRef.remove();
+    
+     this.intrenshipRef = this.db.object('/internshipJob/' + id);
+     
+     this.intrenshipRef.remove();
   }
 }
 

@@ -41,7 +41,7 @@ export class AddJobPage implements OnInit {
       this.jobService.createJob(this.addJobForm.value).then(res => {
         console.log(res)
         this.addJobForm.reset();
-        this.router.navigate(['/folder']);
+        this.router.navigate(['/job-list']);
       })
         .catch(error => console.log(error));
     }

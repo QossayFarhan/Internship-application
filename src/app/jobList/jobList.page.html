@@ -12,7 +12,7 @@
       Internship Jobs
     </ion-list-header>
     <ion-item *ngFor="let job of Jobs" class="user-list">
-      <ion-label>
+      <ion-label *ngIf="">
         <h5>
           <ion-icon name="person"></ion-icon> {{job.Company}}
         </h5>
@@ -24,7 +24,7 @@
         </p>
       </ion-label>
       <div class="item-note" item-end>
-        <button ion-button clear [routerLink]="['/edit-student/', job.$key]">
+        <button ion-button clear [routerLink]="['/edit-job/', job.$key ]">
           <ion-icon name="create" style="zoom:2.0"></ion-icon>
         </button>
         <button ion-button clear (click)="deleteJob(job.$key)">
