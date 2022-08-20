@@ -1,93 +1,72 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Operation } from '../shared/Operation';
-import { OperationService } from '../shared/operation-service.service';
-import { __param } from 'tslib';
+import { Component, ValueProvider } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { CompanyOperationService } from '../shared/company-operation.service';
+import { companyOperation } from '../shared/companyOperation';
+
 
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.page.html',
   styleUrls: ['./log-in.page.scss'],
 })
-export class LogInPage implements OnInit {
-  enterAccountForm: FormGroup;
-  email: string = '';
-  password: string = '';
-  name: any;
-  emailfound: boolean = false;
-  passwordfound: boolean = false;
-  id: any;
+export class LogInPage {
 
-  Accounts = [];
+  Accounts=[];
+  email:string ="";
+  password:string="";
+  id:any;
+  verifyid1:string="";
+  //verifyid2:string="";
 
   constructor(
-    private aptService: OperationService,
+    private aptService: CompanyOperationService,
     private actRoute: ActivatedRoute,
     private router: Router,
     public fb: FormBuilder
-  ) {}
+  ) { }
 
-  ngOnInit() {
-    let accountRes = this.aptService.getAccountList();
-    accountRes.snapshotChanges().subscribe((res) => {
-      this.Accounts = [];
-      res.forEach((item) => {
-        let a = item.payload.toJSON();
-        a['$key'] = item.key;
-        this.Accounts.push(a as Operation);
-      });
-    });
-  }
+  ngOnInit(){}
 
-  enterAccount() {
+
+  enterAccount(){
     console.log(this.email);
     console.log(this.password);
 
-    this.aptService
-      .findAccount()
-      .valueChanges()
-      .subscribe((res) => {
-        console.log(this.parseObject(res));
-      });
+    let accountRes=this.aptService.getAccountList();
+    accountRes.snapshotChanges().subscribe(res =>{
+    this.Accounts=[];
+      res.forEach(item=>{
+        let a= item.payload.toJSON();
+        a['$key']=item.key;
+        this.Accounts.push(a as companyOperation);
+
+        this.aptService.verifyAccountEmail(item.key).valueChanges().subscribe(emailres=>{
+          if(this.email==emailres){
+            this.verifyid1=item.key;
+            console.log(this.verifyid1);
+
+            this.aptService.verifyAccountPassword(item.key).valueChanges().subscribe(pasres=>{
+              if(this.password==pasres){
+                console.log("Login Success");
+                this.id=this.verifyid1;
+                this.aptService.setId(this.id);// here pass the id value to the service
+                this.router.navigate(['/job-list']);
+                //Route to main menu
+              }
+              else {
+                console.log("Login Fail");
+              }
+
+            }) 
+
+          } //can detect wrong password, but nothing while wrong email.
+        })
+
+      })
+    })
+    
   }
 
-  parseObject(obj) {
-    for (var key in obj) {
-      this.aptService
-        .getAccountEmail(key)
-        .valueChanges()
-        .subscribe((newres) => {
-          this.emailfound = false;
-          if (this.email == newres) {
-            this.emailfound = true;
-          }
-        });
 
-      this.aptService
-        .getAccountPassword(key)
-        .valueChanges()
-        .subscribe((pasres) => {
-          this.passwordfound = false;
-          if (this.password == pasres) {
-            this.passwordfound = true;
-          }
-          try {
-            if (this.passwordfound == true && this.emailfound == true) {
-              console.log('success!');
-              this.aptService
-                .getAccountName(key)
-                .valueChanges()
-                .subscribe((nameres) => {
-                  console.log(nameres);
-                });
-
-              this.router.navigate(['/job-list']);
-            }
-          } catch (err) {
-            if (err) throw err;
-          }
-        });
-    }
-  }
 }

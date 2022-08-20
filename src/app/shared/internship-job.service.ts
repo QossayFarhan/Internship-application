@@ -52,5 +52,9 @@ export class InternshipJobService {
      
      this.intrenshipRef.remove();
   }
+
+  acceptApplication(id, Job: intrenshipJob){
+    Job.Company = "accepted"
+  }
 }
 

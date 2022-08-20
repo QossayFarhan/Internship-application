@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Jobs List</ion-title>
+    <ion-title> Student Jobs List</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -14,22 +14,20 @@
     <ion-item *ngFor="let job of Jobs" class="user-list">
       <ion-label >
         <h5>
-          <ion-icon name="home"></ion-icon> {{job.Company}}
+          <ion-icon name="person"></ion-icon> {{job.Company}}
         </h5>
         <p>
-          <ion-icon name="pin"></ion-icon> {{job.Position}}
+          <ion-icon name="call"></ion-icon> {{job.Position}}
         </p>
         <p>
-          <ion-icon name="time"></ion-icon> {{job.Duration}}
+          <ion-icon name="call"></ion-icon> {{job.Duration}}
         </p>
       </ion-label>
       <div class="item-note" item-end>
-        <button ion-button clear [routerLink]="['/edit-job/', job.$key ]">
+        <button ion-button clear [routerLink]="['/student-application/', job.$key ]">
           <ion-icon name="create" style="zoom:2.0"></ion-icon>
         </button>
-        <button ion-button clear (click)="deleteJob(job.$key)">
-          <ion-icon name="trash" style="zoom:2.0"></ion-icon>
-        </button>
+        
       </div>
     </ion-item>
   </ion-list>

@@ -11,11 +11,6 @@ export class AppComponent {
   activePageTitle = 'main';
   public appPages = [
     {
-      title: 'Log In',
-      url: '/log-in',
-      icon: 'add'
-    },
-    {
       title: 'Add Job',
       url: '/add-job',
       icon: 'add'
@@ -24,7 +19,22 @@ export class AppComponent {
       title: 'Job List',
       url: '/job-list',
       icon: 'albums'
-    }
+    },
+    {
+      title: 'Applications List',
+      url: '/validate-application',
+      icon: 'albums'
+    },
+    {
+      title: 'Log out',
+      url: '/log-in',
+      icon: 'log-out'
+    },
+    // {
+    //   title: 'Student Job List',
+    //   url: '/student-job-list',
+    //   icon: 'albums'
+    // }
   ];
   
   
